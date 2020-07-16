@@ -1,12 +1,10 @@
 package com.schollofnet.springboot.repository;
 
-import com.schollofnet.springboot.model.Car;
+import com.schollofnet.springboot.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CarRepository extends JpaRepository<Car, Long> {
-
-    String findByName(String name);
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
 }
