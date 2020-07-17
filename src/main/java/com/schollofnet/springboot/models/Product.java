@@ -1,9 +1,7 @@
 package com.schollofnet.springboot.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Entity
@@ -13,8 +11,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Cant not be empty")
+    @NotBlank(message = "Cant not be blank")
+    @Size(min = 4, max = 255)
     private String name;
 
+
+    @NotEmpty(message = "Cant not be empty")
+    @Min(value = 0)
+    @Max(value = 1000)
     private Integer qtd;
 
     private Date dateCreated;
@@ -25,6 +30,14 @@ public class Product {
     public Product(String name, Integer qtd) {
         this.name = name;
         this.qtd = qtd;
+    }
+
+
+    @PrePersist
+    public void onPrePersist() {
+        if (this.dateCreated == null) {
+            this.dateCreated = new Date();
+        }
     }
 
     public Long getId() {
